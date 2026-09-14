@@ -58,7 +58,12 @@ int main() {
     ts.ButtonTint = WHITE;
 
     ts.button.BG = buttonBG.getTexture();
-    ts.button.Destination = { 100.0f, 100.0f, (float)ts.button.BG.width*2.0f, (float)ts.button.BG.height*2.0f };
+    ts.button.Destination = { 
+        (Screen::Var::screenDimension.x / 2.0f) - ts.button.BG.width, 
+        (Screen::Var::screenDimension.y / 2.0f) - ts.button.BG.height, 
+        (float)ts.button.BG.width*2.0f, 
+        (float)ts.button.BG.height*2.0f 
+    };
     ts.button.HolderRect = { 0, 0, (float)ts.button.BG.width, (float)ts.button.BG.height };
     ts.button.Origin = { 0, 0 };
     ts.button.Rotation = 0.0f;
@@ -67,26 +72,10 @@ int main() {
         Globals::currentScene = Globals::Menu::Game;
     };
 
-
-    // TODO: Place start button at correct location
-    // TODO: Add bg image to start screen!
-
-    // Player
-    // Player player;
-    // player.Pos = { 400, 600 };
-    // player.Size = { 50, 50 };
-
-    // Camera
-    // Camera2D camera = { 0 };
-    // camera.target = (Vector2){ player.Pos.x + player.Size.x / 2, player.Pos.y + player.Size.y / 2 };
-    // camera.offset = (Vector2){ 640, 360 };
-    // camera.zoom = 1.0f;
-
-
     Vector2 center = Screen::Fn::getScreenCenter(Screen::Var::screenDimension);
 
     while (!WindowShouldClose()) {
-        BeginDrawing();
+        BeginDrawing(); 
 
             if (Globals::currentScene == Globals::Menu::TitleScreen) {
                 ts.Draw();
@@ -96,7 +85,7 @@ int main() {
             }
 
             DrawFPS(10,10);
-        EndDrawing();     
+        EndDrawing();
     }
 
     return 0;
