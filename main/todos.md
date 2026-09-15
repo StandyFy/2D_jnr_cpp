@@ -1,27 +1,30 @@
 # TODOs
-<br />
 
-## Main menu
-<br />
-* Add a background in the start menu
+## Main Menu
+
+* Add a background to the start menu
 * Add a quit button
 
 ## Game
-<br />
 
 ### Create a Player
-<br />
-* Add a rectangle as the player with a cam
+
+* Add a rectangle as the player with a camera
 * Add movement to the player
-* Add Gravity to the player
-* Add a sprite to the Player
+* Add gravity to the player
+* Add a sprite to the player
 
 ## Sounds
-<br />
-* Make a button click sound
+
+* Add a button click sound
 * Add menu background music
 
 ## Textures
-<br />
+
 * Create a texture for the Start Button
 * Create a texture for the Player
+
+<br />
+# DONE
+
+I forgot to make a merge for the first few features, so the list will now be expanded.
