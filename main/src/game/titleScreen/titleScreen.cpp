@@ -20,8 +20,17 @@ void TitleScreen::setFontProperties(
 
 void TitleScreen::Draw() {
     // BackGround
-    DrawRectangleV({ 0, 0 }, Screen::Var::screenDimension, BG_COLOR);
 
+    // FIX!!! BACKGROUND IS BLACK AND FPS ARE LAYERING
+    if (!IsTextureValid(background)) {
+        TraceLog(LOG_ERROR, BG_TEXTURE_NOT_LOADED);
+        DrawRectangleV({ 0, 0 }, Screen::Var::screenDimension, BG_COLOR);   
+    } else {
+        DrawTexturePro(background, source, dest, {0,0}, 0.0f, WHITE);
+        TraceLog(LOG_DEBUG, "BACKGROUND LOADED");
+    }
+
+    // Do some magic for the title pos
     Vector2 center = Screen::Fn::getScreenCenter(Screen::Var::screenDimension);
     Vector2 textSize = MeasureTextEx(_Font, Text, FontSize, Spacing);
     Vector2 fontPos = {
@@ -38,6 +47,5 @@ void TitleScreen::Draw() {
         ButtonTint = {255, 255, 255};
     }
     
-    // TODO: Draw the button with texture here just get an instance of Button
     button.Draw();
 }
