@@ -11,6 +11,8 @@ int main() {
     ToggleBorderlessWindowed();
     // InitWindow(1280, 720, "DEBUG");
 
+    ClearWindowState(FLAG_WINDOW_TOPMOST); // Fix z ordern when tapped out
+
     SetTargetFPS(60);
 
     // Screen
@@ -28,6 +30,7 @@ int main() {
     int fontSize = 25;
     int codepointCount = 0;
     int *codePoints = LoadCodepoints(titleText, &codepointCount);
+    
     // Load the font Texture
     HFont titleFont(
         fileName,
@@ -38,31 +41,54 @@ int main() {
         codepointCount
     );
 
+    Color fontColor = { 255, 178, 92, 255};
     ts.setFontProperties(
         titleText,
         titleFont.getFont(),
         {0,0},
         fontSize,
         textLineSpacing,
-        GREEN
+        fontColor
     );
 
+    //BackGround
+    HTexture background(
+      "../src/assets/textures/main-menu/background.jpg"  
+    );
+
+    ts.background = background.getTexture();
+    ts.source = {
+        0, 
+        0, 
+        (float)ts.background.width, 
+        (float)ts.background.height
+    };
+    ts.dest = {
+        0,
+        0,
+        Screen::Var::screenDimension.x,
+        Screen::Var::screenDimension.y,
+    };
+
+    
+    // Button
     HTexture buttonBG(
-        "../src/assets/textures/main-menu/button.jpg"
+        "../src/assets/textures/main-menu/button.png"
     );
     
     ts.buttonBG = buttonBG.getTexture();
     ts.buttonPos = Screen::Fn::getScreenCenter(Screen::Fn::getScreenDimensions(Screen::Fn::getMainScreen()));
     ts.buttonRotation = 0.0f;
-    ts.buttonScale = 2.0f;
+    ts.buttonScale = 5.0f;
     ts.ButtonTint = WHITE;
 
+    float buttonScale = 5.0f;
     ts.button.BG = buttonBG.getTexture();
     ts.button.Destination = { 
-        (Screen::Var::screenDimension.x / 2.0f) - ts.button.BG.width, 
-        (Screen::Var::screenDimension.y / 2.0f) - ts.button.BG.height, 
-        (float)ts.button.BG.width*2.0f, 
-        (float)ts.button.BG.height*2.0f 
+        (Screen::Var::screenDimension.x - ts.button.BG.width * buttonScale) / 2.0f, 
+        (Screen::Var::screenDimension.y - ts.button.BG.height * buttonScale) / 2.0f, 
+        (float)ts.button.BG.width*buttonScale, 
+        (float)ts.button.BG.height*buttonScale 
     };
     ts.button.HolderRect = { 0, 0, (float)ts.button.BG.width, (float)ts.button.BG.height };
     ts.button.Origin = { 0, 0 };
@@ -81,7 +107,7 @@ int main() {
                 ts.Draw();
             }
             if (Globals::currentScene == Globals::Menu::Game) {
-                ClearBackground(RED);
+                ClearBackground(RAYWHITE);
             }
 
             DrawFPS(10,10);
